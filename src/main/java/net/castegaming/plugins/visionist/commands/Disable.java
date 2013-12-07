@@ -49,6 +49,7 @@ public class Disable extends IngameCommand {
 		
 		if (closest != null){
 			closest.disable();
+			msg("Dsiabled your clostst stream!");
 			return true;
 		}
 		return false;

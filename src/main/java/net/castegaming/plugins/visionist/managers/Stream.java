@@ -31,6 +31,7 @@ public class Stream {
 	private byte b = 0;
 	
 	private boolean enabled = true;
+	private boolean removal = false;
 
 	/**
 	 * 
@@ -143,5 +144,16 @@ public class Stream {
 	 */
 	public boolean removeUUID(UUID uniqueId){
 		return uuids.remove(uniqueId);
+	}
+
+	/**
+	 * 
+	 */
+	public void remove() {
+		removal  = true;
+	}
+	
+	public boolean needsRemove(){
+		return removal;
 	}
 }

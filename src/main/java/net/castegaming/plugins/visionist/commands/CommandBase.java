@@ -23,6 +23,10 @@ public abstract class CommandBase {
 		this.args = args;
 	}
 	
+	public void msg(String message){
+		Visionist.msg(sender, message);
+	}
+	
 	/**
 	 * This is the handle for a {@link Command}
 	 * @return <code>true</code> if it was successful, otherwise <code>false</code>

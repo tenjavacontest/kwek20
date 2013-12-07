@@ -49,8 +49,14 @@ public class StreamKeeper implements Listener{
 			@Override
 			public void run() {
 				System.out.println("looping over stream!");
+				List<Stream> stream = streams;
 				for (Stream s : streams){
-					s.playStream();
+					if (s.needsRemove()){
+						streams.remove(s);
+						System.out.println("Removed stream!");
+					} else {
+						s.playStream();
+					}
 				}
 			}
 			
