@@ -67,4 +67,24 @@ public class Stream {
 	private void spawnOne(){
 		l.getWorld().spawnFallingBlock(l, m.getId(), b);
 	}
+
+	/**
+	 * @return
+	 */
+	public Material getMaterial() {
+		// TODO Auto-generated method stub
+		return m;
+	}
+	
+	public Location getLocation(){
+		return l;
+	}
+	
+	public byte getByte(){
+		return b;
+	}
+	
+	public int getAmount(){
+		return amount;
+	}
 }

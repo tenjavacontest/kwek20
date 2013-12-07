@@ -8,6 +8,10 @@ commands:
     description: visionist base command
     usage: Type /visionist to see the info 
     aliases: [v]
+  createfall:
+    description: Create a stream of falling blocks at your location.
+    usage: Type /createfall [MATERIAL] [amount] [byte] to create a stream at your location. last 2 optional.
+    aliases: [cf, createf, cfall] 
     
 permissions:
   visionist.*:

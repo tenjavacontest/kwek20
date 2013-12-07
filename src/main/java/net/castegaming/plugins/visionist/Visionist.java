@@ -4,6 +4,7 @@
 package net.castegaming.plugins.visionist;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import net.castegaming.plugins.visionist.commands.CommandHandler;
@@ -39,7 +40,6 @@ public class Visionist extends JavaPlugin {
 		saveDefaultConfig();
 		checkConfig();
 		handler = new CommandHandler(this);
-		
 		
 		loadStreams();
 		keeper.start();
@@ -82,6 +82,15 @@ public class Visionist extends JavaPlugin {
 	 * Checks the config for possible mistakes or needed updates.
 	 */
 	public void checkConfig(){
+		saveDefaultConfig();
+		
+		String[] files = new String[]{"streams.yml"};
+		for (String filename : files){
+			if (!new File(getDataFolder() + filename).exists()){
+				new File(getDataFolder() + filename).mkdir();
+			}
+		}
+		
 		YamlConfiguration config = YamlConfiguration.loadConfiguration(getResource("config.yml"));
 		YamlConfiguration fconfig = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
 		for (String key : config.getKeys(true)){
@@ -129,6 +138,35 @@ public class Visionist extends JavaPlugin {
 			((Player)sender).sendMessage(prefix + string);
 		} else {
 			log(string);
+		}
+	}
+
+	/**
+	 * Returns the {@link StreamKeeper} handler.
+	 * @return the {@link StreamKeeper}
+	 */
+	public StreamKeeper getStreamKeeper() {
+		return keeper;
+	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	public static YamlConfiguration getFile(String name) {
+		if (!(name.endsWith(".yml"))) name += ".yml";
+		return YamlConfiguration.loadConfiguration(new File(Visionist.getInstance().getDataFolder() + name));
+	}
+
+	/**
+	 * @param string
+	 */
+	public static void saveFile(YamlConfiguration c, String name) {
+		if (!(name.endsWith(".yml"))) name += ".yml";
+		try {
+			c.save(Visionist.getInstance().getDataFolder() + name);
+		} catch (IOException e) {
+			log("Could not save " + name + "!!! Is the disk full?");
 		}
 	}
 }

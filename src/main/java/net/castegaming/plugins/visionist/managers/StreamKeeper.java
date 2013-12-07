@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -46,5 +47,22 @@ public class StreamKeeper implements Listener{
 		Bukkit.getScheduler().cancelTask(runnable);
 	}
 
-
+	/**
+	 * @param stream
+	 */
+	public void addStream(Stream stream) {
+		YamlConfiguration streams = Visionist.getFile("streams");
+		//streams cannot be null, since we check before we are loaded
+		
+		int size = streams.getKeys(false).size()+1;
+		streams.set(size + "material", stream.getMaterial());
+		streams.set(size + "byte", stream.getByte());
+		streams.set(size + "amount", stream.getAmount());
+		streams.set(size + "world", stream.getLocation().getWorld().getName());
+		streams.set(size + "location", new int[]{stream.getLocation().getBlockX(), stream.getLocation().getBlockY(), stream.getLocation().getBlockZ()});
+		
+		Visionist.saveFile(streams, "streams");
+		
+		this.streams.add(stream);
+	}
 }
