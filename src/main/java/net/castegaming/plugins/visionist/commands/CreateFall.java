@@ -3,46 +3,42 @@
  */
 package net.castegaming.plugins.visionist.commands;
 
-import org.bukkit.Bukkit;
+import net.castegaming.plugins.visionist.Visionist;
+
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 /**
  * @author Brord
  * {@link Command} to make a stream of blocks, a waterfall for example
  */
-public class CreateFall extends CommandBase {
-
+public class CreateFall extends IngameCommand {
+	
 	/**
 	 * @throws NotIngameException 
 	 * 
 	 */
 	public CreateFall(CommandSender sender, Command command, String[] args) throws NotIngameException {
 		super(sender, command, args);
-		if (!(sender instanceof Player)){
-			throw new NotIngameException();
-		}
 	}
 
 	@Override
 	public boolean handle() {
+		Player p = getPlayer();
+		
 		if (args.length < 3){
-			return false;
+			return  false;
 		}
 		
-		Player p = Bukkit.getServer().getPlayer(args[0]);
-		if (p == null){
-			return false;
-		}
-		
-		int amount;
+		Material type;
 		try {
-			amount = Integer.parseInt(args[1]);
-		} catch (NumberFormatException e){
-			return false;
+			type = Material.valueOf(args[0].toUpperCase());
+		} catch (IllegalArgumentException e){
+			Visionist.msg(sender, "Please define a valid material name!");
 		}
+		
 		
 		return true;
 	}
