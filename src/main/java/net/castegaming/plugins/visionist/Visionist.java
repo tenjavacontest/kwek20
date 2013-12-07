@@ -12,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -21,7 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Visionist extends JavaPlugin {
 		
 	private static Visionist plugin;
-	public static String prefix = ChatColor.MAGIC + "|" + ChatColor.GRAY + "[" + ChatColor.GOLD + "Tencode" + ChatColor.GRAY + "]" + ChatColor.MAGIC + "| " + ChatColor.RESET;
+	public static String prefix = ChatColor.MAGIC + "|" + ChatColor.GRAY + "[" + ChatColor.GOLD + "Visionist" + ChatColor.GRAY + "]" + ChatColor.MAGIC + "| " + ChatColor.RESET;
 	private CommandHandler handler;
 	
 	
@@ -59,15 +60,42 @@ public class Visionist extends JavaPlugin {
 		}
 	}
 	
+	/**
+	 * Logs to the console, in colors if possible
+	 * @param string the {@link String} to log
+	 */
 	public static void log(String string) {
 		try{
 			Bukkit.getServer().getConsoleSender().sendMessage(prefix + string);
 		} catch (Exception e){
-			System.out.println("[Killstreaks] " + string);
+			System.out.println("[Visionist] " + string);
 		}
 	}
 	
+	/**
+	 * Returns the name prefix used in this plugin
+	 * @return a {@link String}
+	 */
 	public String getprefix() {
 		return prefix;
+	}
+
+	/**
+	 * @return the isntance
+	 */
+	public static Visionist getInstance() {
+		return plugin;
+	}
+
+	/**
+	 * @param sender the receiver of this msg
+	 * @param string the message
+	 */
+	public static void msg(CommandSender sender, String string) {
+		if (sender instanceof Player && sender != null){
+			((Player)sender).sendMessage(prefix + string);
+		} else {
+			log(string);
+		}
 	}
 }

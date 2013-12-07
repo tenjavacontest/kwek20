@@ -11,18 +11,18 @@ import org.bukkit.entity.Player;
 
 /**
  * @author Brord
- *
+ * {@link Command} to make a stream of blocks, a waterfall for example
  */
-public class Help extends CommandBase {
+public class CreateFall extends CommandBase {
 
 	/**
-	 * @throws NoConsoleException 
+	 * @throws NotIngameException 
 	 * 
 	 */
-	public Help(CommandSender sender, Command command, String[] args) throws NoConsoleException {
+	public CreateFall(CommandSender sender, Command command, String[] args) throws NotIngameException {
 		super(sender, command, args);
-		if (!(sender instanceof ConsoleCommandSender)){
-			throw new NoConsoleException();
+		if (!(sender instanceof Player)){
+			throw new NotIngameException();
 		}
 	}
 

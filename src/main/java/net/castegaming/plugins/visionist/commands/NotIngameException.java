@@ -7,7 +7,7 @@ package net.castegaming.plugins.visionist.commands;
  * @author Brord
  *
  */
-public class NoConsoleException extends Exception {
+public class NotIngameException extends Exception {
 
 	/**
 	 * 
