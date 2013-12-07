@@ -7,7 +7,11 @@ import net.castegaming.plugins.visionist.Consts;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
+
+import com.avaje.ebean.enhance.asm.commons.Method;
 
 /**
  * @author Brord
@@ -19,6 +23,8 @@ public class Stream {
 	private Location l;
 	private int amount = 1;
 	private byte b = 0;
+	
+	private boolean enabled = true;
 
 	/**
 	 * 
@@ -46,10 +52,11 @@ public class Stream {
 		this.l = l;
 		this.amount = amount;
 		this.b = b;
+		enabled = true;
 	}
 	
 	/**
-	 * 
+	 * Play this {@link Stream}, only if there are {@link Player}s nearby
 	 */
 	public void playStream() {
 		for (Player p : l.getWorld().getEntitiesByClass(Player.class)){
@@ -60,12 +67,42 @@ public class Stream {
 		}
 	}
 	
-	private void play(){
-		if (amount == 1) spawnOne();
+	/**
+	 * disables this {@link Stream}
+	 */
+	public void disable(){
+		enabled = false;
 	}
 	
-	private void spawnOne(){
-		l.getWorld().spawnFallingBlock(l, m.getId(), b);
+	/**
+	 * Enables this {@link Stream}
+	 */
+	public void enable(){
+		enabled = true;
+	}
+	
+	/**
+	 * Toggles vetween the state of this stream, on/off
+	 */
+	public void toggleState(){
+		enabled = !enabled;
+	}
+	
+	/**
+	 * internal {@link Method} used to spawn falling blocks
+	 */
+	private void play(){
+		if (amount == 1){
+			spawnOne().setVelocity(new Vector(0, 0.001, 0));
+		} else {
+			for (double i = -(2*Math.PI); i < 2*Math.PI; i+=Math.toRadians(360/amount)){
+				spawnOne().setVelocity(new Vector(Math.cos(i), 0.001, Math.sin(i)).normalize());
+			}
+		}
+	}
+	
+	private FallingBlock spawnOne(){
+		return l.getWorld().spawnFallingBlock(l, m.getId(), b);
 	}
 
 	/**

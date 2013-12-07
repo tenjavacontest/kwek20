@@ -4,6 +4,7 @@
 package net.castegaming.plugins.visionist.managers;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import net.castegaming.plugins.visionist.Visionist;
 
@@ -18,7 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class StreamKeeper implements Listener{
 
-	public LinkedList<Stream> streams;
+	private LinkedList<Stream> streams;
 	
 	private int runnable = -1;
 	
@@ -64,5 +65,13 @@ public class StreamKeeper implements Listener{
 		Visionist.saveFile(streams, "streams");
 		
 		this.streams.add(stream);
+	}
+	
+	/**
+	 * Returns all the current steams
+	 * @return a {@link List} of the current {@link Stream}s
+	 */
+	public List<Stream> getStreams(){
+		return streams;
 	}
 }
