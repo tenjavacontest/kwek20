@@ -51,10 +51,12 @@ public class CommandHandler {
 		}
 		
 		try {
-			if (label.equalsIgnoreCase("createfall")){
+			if (label.equalsIgnoreCase("createstream")){
 				cmd = new CreateFall(sender, command, args);
-			} else if (label.equalsIgnoreCase("command2")){
-				
+			} else if (label.equalsIgnoreCase("disablestream")){
+				cmd = new Disable(sender, command, args);
+			} else if (label.equalsIgnoreCase("removestream")){
+				cmd = new Remove(sender, command, args);
 			} else {
 				cmd = new CreateFall(sender, command, args);
 			}

@@ -3,6 +3,10 @@
  */
 package net.castegaming.plugins.visionist.managers;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+
 import net.castegaming.plugins.visionist.Consts;
 
 import org.bukkit.Location;
@@ -18,6 +22,8 @@ import com.avaje.ebean.enhance.asm.commons.Method;
  *
  */
 public class Stream {
+	
+	private List<UUID> uuids;
 	
 	private Material m;
 	private Location l;
@@ -53,14 +59,18 @@ public class Stream {
 		this.amount = amount;
 		this.b = b;
 		enabled = true;
+		uuids = new LinkedList<UUID>();
 	}
 	
 	/**
 	 * Play this {@link Stream}, only if there are {@link Player}s nearby
 	 */
 	public void playStream() {
+		if (!enabled) return;
+		
 		for (Player p : l.getWorld().getEntitiesByClass(Player.class)){
-			if (p.getLocation().distanceSquared(l) < Consts.MAX_DISTANCE){
+			System.out.println("looping over players!");
+			if (p.getLocation().distanceSquared(l) < Consts.MAX_DISTANCE*Consts.MAX_DISTANCE){
 				play();
 				break;
 			}
@@ -102,7 +112,9 @@ public class Stream {
 	}
 	
 	private FallingBlock spawnOne(){
-		return l.getWorld().spawnFallingBlock(l, m.getId(), b);
+		FallingBlock b = l.getWorld().spawnFallingBlock(l, m.getId(), this.b);
+		uuids.add(b.getUniqueId());
+		return (b);
 	}
 
 	/**
@@ -123,5 +135,13 @@ public class Stream {
 	
 	public int getAmount(){
 		return amount;
+	}
+	
+	/**
+	 * @param uniqueId
+	 * @return
+	 */
+	public boolean removeUUID(UUID uniqueId){
+		return uuids.remove(uniqueId);
 	}
 }

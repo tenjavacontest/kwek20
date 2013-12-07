@@ -3,6 +3,7 @@
  */
 package net.castegaming.plugins.visionist.managers;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -30,12 +33,22 @@ public class StreamKeeper implements Listener{
 		streams = new LinkedList<Stream>();
 	}
 	
+	@EventHandler
+	public void blockfall(EntityChangeBlockEvent e){
+		for (Stream s : streams){
+			if (s.removeUUID(e.getEntity().getUniqueId())){
+				e.setCancelled(true);
+				break;
+			}
+		}
+	}
+	
 	public void start(){
 		runnable = new BukkitRunnable(){
 
 			@Override
 			public void run() {
-				
+				System.out.println("looping over stream!");
 				for (Stream s : streams){
 					s.playStream();
 				}
@@ -56,11 +69,14 @@ public class StreamKeeper implements Listener{
 		//streams cannot be null, since we check before we are loaded
 		
 		int size = streams.getKeys(false).size()+1;
-		streams.set(size + "material", stream.getMaterial());
-		streams.set(size + "byte", stream.getByte());
-		streams.set(size + "amount", stream.getAmount());
-		streams.set(size + "world", stream.getLocation().getWorld().getName());
-		streams.set(size + "location", new int[]{stream.getLocation().getBlockX(), stream.getLocation().getBlockY(), stream.getLocation().getBlockZ()});
+		streams.set(size + ".material", stream.getMaterial().name());
+		streams.set(size + ".byte", stream.getByte());
+		streams.set(size + ".amount", stream.getAmount());
+		streams.set(size + ".world", stream.getLocation().getWorld().getName());
+		streams.set(size + ".location", new LinkedList<Integer>(
+				Arrays.asList(
+						new Integer[]{stream.getLocation().getBlockX(), stream.getLocation().getBlockY(), stream.getLocation().getBlockZ()}
+				)));
 		
 		Visionist.saveFile(streams, "streams");
 		

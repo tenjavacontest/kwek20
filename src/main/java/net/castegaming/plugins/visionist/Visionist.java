@@ -36,6 +36,8 @@ public class Visionist extends JavaPlugin {
 	@Override
 	public void onEnable(){
 		super.onEnable();
+		log("Loading Visionist...");
+		
 		plugin = this;
 		saveDefaultConfig();
 		checkConfig();
@@ -43,6 +45,8 @@ public class Visionist extends JavaPlugin {
 		
 		loadStreams();
 		keeper.start();
+		
+		log("Loading done!");
 	}
 	
 	/**
@@ -155,7 +159,7 @@ public class Visionist extends JavaPlugin {
 	 */
 	public static YamlConfiguration getFile(String name) {
 		if (!(name.endsWith(".yml"))) name += ".yml";
-		return YamlConfiguration.loadConfiguration(new File(Visionist.getInstance().getDataFolder() + name));
+		return YamlConfiguration.loadConfiguration(new File(Visionist.getInstance().getDataFolder() + File.separator + name));
 	}
 
 	/**
@@ -164,7 +168,7 @@ public class Visionist extends JavaPlugin {
 	public static void saveFile(YamlConfiguration c, String name) {
 		if (!(name.endsWith(".yml"))) name += ".yml";
 		try {
-			c.save(Visionist.getInstance().getDataFolder() + name);
+			c.save(Visionist.getInstance().getDataFolder() + File.separator + name);
 		} catch (IOException e) {
 			log("Could not save " + name + "!!! Is the disk full?");
 		}

@@ -1,5 +1,5 @@
 name: visionist
-main: net.castegaming.plugins.visionist
+main: net.castegaming.plugins.visionist.Visionist
 version: 0.1
 description: Visionist plugin
 authors: [kwek20]
@@ -8,10 +8,19 @@ commands:
     description: visionist base command
     usage: Type /visionist to see the info 
     aliases: [v]
-  createfall:
+  createstream:
     description: Create a stream of falling blocks at your location.
-    usage: Type /createfall [MATERIAL] [amount] [byte] to create a stream at your location. last 2 optional.
-    aliases: [cf, createf, cfall] 
+    usage: Type /createstream [MATERIAL] [amount] [byte] to create a stream at your location. last 2 optional.
+    aliases: [cs, creates, cstream] 
+  disablestream:
+    description: Disables the stream nearest to you
+    usage: Type /disablestream to disable the stream nearest to you
+    aliases: [ds, disables, dstream] 
+  removestream:
+    description: Removes the stream nearest to you
+    usage: Type /removestream to remove the stream nearest to you
+    aliases: [rs, removes, rstream] 
+    
     
 permissions:
   visionist.*:
