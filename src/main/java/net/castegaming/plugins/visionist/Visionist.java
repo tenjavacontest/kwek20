@@ -21,6 +21,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 /**
  * @author Brord
@@ -68,8 +69,13 @@ public class Visionist extends JavaPlugin {
 
 			Location l = new Location(w, coords.get(0), coords.get(1), coords.get(2));
 			
+			coords =  streams.getIntegerList(s + ".vector");
+			Vector v;
+			if (coords == null || coords.size() < 3) v = new Vector();
+			else v = new Vector(coords.get(0), coords.get(1), coords.get(2));
+			
 			log("Added stream with material " + m.name());
-			Stream stream = new Stream(m , l, streams.getInt(s + ".amount", 1), (byte)streams.getInt(s + ".byte", 0));
+			Stream stream = new Stream(m , l, streams.getInt(s + ".amount", 1), (byte)streams.getInt(s + ".byte", 0), v);
 			if (!streams.getBoolean(s + ".enabled", true)){
 				stream.disable();
 			}

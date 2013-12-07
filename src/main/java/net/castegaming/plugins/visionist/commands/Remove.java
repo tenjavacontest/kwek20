@@ -11,6 +11,7 @@ import net.castegaming.plugins.visionist.managers.Stream;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * @author Brord
@@ -38,12 +39,14 @@ public class Remove extends IngameCommand {
 		List<Stream> streams = Visionist.getInstance().getStreamKeeper().getStreams();
 		
 		int id = 1;
+		int currentMax = 1;
 		double distance = Double.MAX_VALUE;
 		Stream closest = null;
 		for (Stream s : streams){
 			if (l.distanceSquared(s.getLocation()) < distance){
 				distance = l.distanceSquared(s.getLocation());
 				closest = s;
+				currentMax = id;
 			} 
 			id++;
 		}
@@ -51,8 +54,10 @@ public class Remove extends IngameCommand {
 		if (closest != null){
 			closest.disable();
 			closest.remove();
-			Visionist.getFile("streams").set(id + "", null);
-			Visionist.saveFile(Visionist.getFile("streams"), "streams");
+			YamlConfiguration c = Visionist.getFile("streams");
+			c.set(currentMax + "", null);
+			Visionist.saveFile(c, "streams");
+			
 			msg("Removed your closest stream!");
 			return true;
 		}

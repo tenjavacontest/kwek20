@@ -15,6 +15,8 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import sun.awt.windows.ThemeReader;
+
 import com.avaje.ebean.enhance.asm.commons.Method;
 
 /**
@@ -32,6 +34,8 @@ public class Stream {
 	
 	private boolean enabled = true;
 	private boolean removal = false;
+
+	private Vector vector;
 
 	/**
 	 * 
@@ -55,14 +59,26 @@ public class Stream {
 	}
 	
 	public Stream(Material m, Location l, int amount, byte b) {
+		this(m, l, amount, b, new Vector(0, 0 ,0));
+	}
+	
+	/**
+	 * @param type
+	 * @param l2
+	 * @param amount2
+	 * @param b2
+	 * @param vector
+	 */
+	public Stream(Material m, Location l, int amount, byte b, Vector vector) {
 		this.m = m;
 		this.l = l;
 		this.amount = amount;
 		this.b = b;
+		this.vector = vector;
 		enabled = true;
 		uuids = new LinkedList<UUID>();
 	}
-	
+
 	/**
 	 * Play this {@link Stream}, only if there are {@link Player}s nearby
 	 */
@@ -99,14 +115,14 @@ public class Stream {
 	}
 	
 	/**
-	 * internal {@link Method} used to spawn falling blocks
+	 * internal {@link Method} used to spawn a {@link FallingBlock}
 	 */
 	private void play(){
 		if (amount == 1){
 			spawnOne().setVelocity(new Vector(0, 0.001, 0));
 		} else {
 			for (double i = -(2*Math.PI); i < 2*Math.PI; i+=Math.toRadians(360/amount)){
-				spawnOne().setVelocity(new Vector(Math.cos(i), 0.001, Math.sin(i)).normalize());
+				spawnOne().setVelocity(new Vector(Math.cos(i), 0.000, Math.sin(i)).normalize());
 			}
 		}
 	}
@@ -154,5 +170,12 @@ public class Stream {
 	
 	public boolean needsRemove(){
 		return removal;
+	}
+
+	/**
+	 * @return the used vector
+	 */
+	public Vector getVector() {
+		return vector;
 	}
 }

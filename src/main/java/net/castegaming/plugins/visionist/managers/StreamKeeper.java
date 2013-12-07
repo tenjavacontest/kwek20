@@ -92,7 +92,10 @@ public class StreamKeeper implements Listener{
 				Arrays.asList(
 						new Integer[]{stream.getLocation().getBlockX(), stream.getLocation().getBlockY(), stream.getLocation().getBlockZ()}
 				)));
-		
+		streams.set(size + ".vector", new LinkedList<Integer>(
+				Arrays.asList(
+						new Integer[]{stream.getVector().getBlockX(), stream.getVector().getBlockY(), stream.getVector().getBlockZ()}
+				)));
 		Visionist.saveFile(streams, "streams");
 		
 		this.streams.add(stream);

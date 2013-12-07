@@ -11,18 +11,19 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 /**
  * @author Brord
  * {@link Command} to make a stream of blocks, a waterfall for example
  */
-public class CreateFall extends IngameCommand {
+public class CreateStream extends IngameCommand {
 	
 	/**
 	 * @throws NotIngameException 
 	 * 
 	 */
-	public CreateFall(CommandSender sender, Command command, String[] args) throws NotIngameException {
+	public CreateStream(CommandSender sender, Command command, String[] args) throws NotIngameException {
 		super(sender, command, args);
 	}
 
@@ -30,7 +31,7 @@ public class CreateFall extends IngameCommand {
 	public boolean handle() {
 		Player p = getPlayer();
 		
-		if (args.length < 3){
+		if (args.length < 1){
 			return  false;
 		}
 		
@@ -44,23 +45,24 @@ public class CreateFall extends IngameCommand {
 			return true;
 		}
 		
-		int amount;
-		try {
-			if((amount = Integer.parseInt(args[1])) < 0) amount = 1;
-		} catch (NumberFormatException e){
-			amount = 1;
-			//amount default 1
+		int amount = 1;
+		byte b = 0;
+		
+		if (args.length > 2){
+			try {
+				if((amount = Integer.parseInt(args[1])) < 0) amount = 1;
+			} catch (NumberFormatException e){
+				//amount default 1
+			}
+			
+			try {
+				if((b = Byte.parseByte(args[2])) < 0) b = 0;
+			} catch (NumberFormatException e){
+				//no byte needed, just for handyness
+			}
 		}
 		
-		byte b;
-		try {
-			if((b = Byte.parseByte(args[2])) < 0) b = 0;
-		} catch (NumberFormatException e){
-			b = 0;
-			//no byte needed, just for handyness
-		}
-		
-		Visionist.getInstance().getStreamKeeper().addNewStream(new Stream(type, l, amount, b));
+		Visionist.getInstance().getStreamKeeper().addNewStream(new Stream(type, l, amount, b, p.getEyeLocation().toVector().normalize()));
 		msg("Added a new Stream!");
 		return true;
 	}

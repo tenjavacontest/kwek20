@@ -52,7 +52,7 @@ public class CommandHandler {
 		
 		try {
 			if (label.equalsIgnoreCase("createstream")){
-				cmd = new CreateFall(sender, command, args);
+				cmd = new CreateStream(sender, command, args);
 			} else if (label.equalsIgnoreCase("disablestream")){
 				cmd = new Disable(sender, command, args);
 			} else if (label.equalsIgnoreCase("enablestream")){
@@ -60,7 +60,7 @@ public class CommandHandler {
 			} else if (label.equalsIgnoreCase("removestream")){
 				cmd = new Remove(sender, command, args);
 			} else {
-				cmd = new CreateFall(sender, command, args);
+				cmd = new CreateStream(sender, command, args);
 			}
 		} catch (NotIngameException e){
 			Visionist.msg(sender, "You must be ingame to execute this command!");
