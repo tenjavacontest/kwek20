@@ -21,7 +21,7 @@ public abstract class IngameCommand extends CommandBase {
 	 */
 	public IngameCommand(CommandSender sender, Command command, String[] args) throws NotIngameException {
 		super(sender, command, args);
-		if (!(sender instanceof Player) && sender == null){
+		if (!(sender instanceof Player) || sender == null){
 			throw new NotIngameException();
 		}
 	}

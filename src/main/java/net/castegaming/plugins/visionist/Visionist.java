@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.List;
 
 import net.castegaming.plugins.visionist.commands.CommandHandler;
-import net.castegaming.plugins.visionist.managers.Stream;
 import net.castegaming.plugins.visionist.managers.StreamKeeper;
+import net.castegaming.plugins.visionist.types.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -100,7 +100,7 @@ public class Visionist extends JavaPlugin {
 	public void checkConfig(){
 		saveDefaultConfig();
 		
-		String[] files = new String[]{"streams.yml"};
+		String[] files = new String[]{"streams.yml", "structures.yml"};
 		for (String filename : files){
 			if (!new File(getDataFolder() + filename).exists()){
 				new File(getDataFolder() + filename).mkdir();

@@ -4,7 +4,7 @@
 package net.castegaming.plugins.visionist.commands;
 
 import net.castegaming.plugins.visionist.Visionist;
-import net.castegaming.plugins.visionist.managers.Stream;
+import net.castegaming.plugins.visionist.types.Stream;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

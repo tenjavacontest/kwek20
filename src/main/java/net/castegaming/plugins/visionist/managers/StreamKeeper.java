@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.castegaming.plugins.visionist.Visionist;
+import net.castegaming.plugins.visionist.types.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

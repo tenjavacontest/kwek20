@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.castegaming.plugins.visionist.managers;
+package net.castegaming.plugins.visionist.types;
 
 import java.util.LinkedList;
 import java.util.List;
