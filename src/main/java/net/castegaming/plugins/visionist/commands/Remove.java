@@ -43,7 +43,7 @@ public class Remove extends IngameCommand {
 		double distance = Double.MAX_VALUE;
 		Stream closest = null;
 		for (Stream s : streams){
-			if (l.distanceSquared(s.getLocation()) < distance){
+			if (l.distanceSquared(s.getLocation()) < distance && !s.needsRemove()){
 				distance = l.distanceSquared(s.getLocation());
 				closest = s;
 				currentMax = id;

@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.UUID;
 
 import net.castegaming.plugins.visionist.Consts;
+import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
 import sun.awt.windows.ThemeReader;
@@ -119,16 +121,17 @@ public class Stream {
 	 */
 	private void play(){
 		if (amount == 1){
-			spawnOne().setVelocity(new Vector(0, 0.001, 0));
+			spawnOne().setVelocity(vector);
 		} else {
 			for (double i = -(2*Math.PI); i < 2*Math.PI; i+=Math.toRadians(360/amount)){
-				spawnOne().setVelocity(new Vector(Math.cos(i), 0.000, Math.sin(i)).normalize());
+				spawnOne().setVelocity(new Vector(Math.cos(i), vector.getY(), Math.sin(i)));
 			}
 		}
 	}
 	
 	private FallingBlock spawnOne(){
 		FallingBlock b = l.getWorld().spawnFallingBlock(l, m.getId(), this.b);
+		b.setMetadata("Visionist", new FixedMetadataValue(Visionist.getInstance(), "stream"));
 		uuids.add(b.getUniqueId());
 		return (b);
 	}

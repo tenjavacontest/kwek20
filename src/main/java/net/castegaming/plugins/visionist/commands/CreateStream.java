@@ -48,21 +48,26 @@ public class CreateStream extends IngameCommand {
 		int amount = 1;
 		byte b = 0;
 		
-		if (args.length > 2){
+		if (args.length > 1){
 			try {
 				if((amount = Integer.parseInt(args[1])) < 0) amount = 1;
 			} catch (NumberFormatException e){
 				//amount default 1
 			}
-			
-			try {
-				if((b = Byte.parseByte(args[2])) < 0) b = 0;
-			} catch (NumberFormatException e){
-				//no byte needed, just for handyness
+			if (args.length > 2){
+				try {
+					if((b = Byte.parseByte(args[2])) < 0) b = 0;
+				} catch (NumberFormatException e){
+					//no byte needed, just for handyness
+				}
 			}
 		}
 		
-		Visionist.getInstance().getStreamKeeper().addNewStream(new Stream(type, l, amount, b, p.getEyeLocation().toVector().normalize()));
+		@SuppressWarnings("deprecation")
+		Location to = p.getTargetBlock(null, 20).getLocation();
+		Vector v = to.toVector().subtract(p.getLocation().toVector()).normalize();
+		
+		Visionist.getInstance().getStreamKeeper().addNewStream(new Stream(type, l, amount, b, v));
 		msg("Added a new Stream!");
 		return true;
 	}
