@@ -1,11 +1,11 @@
 /**
  * 
  */
-package net.castegaming.plugins.tencode;
+package net.castegaming.plugins.visionist;
 
 import java.io.File;
 
-import net.castegaming.plugins.tencode.commands.CommandHandler;
+import net.castegaming.plugins.visionist.commands.CommandHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,9 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Brord
  *
  */
-public class Tencode extends JavaPlugin {
+public class Visionist extends JavaPlugin {
 		
-	private static Tencode plugin;
+	private static Visionist plugin;
 	public static String prefix = ChatColor.MAGIC + "|" + ChatColor.GRAY + "[" + ChatColor.GOLD + "Tencode" + ChatColor.GRAY + "]" + ChatColor.MAGIC + "| " + ChatColor.RESET;
 	private CommandHandler handler;
 	

@@ -1,14 +1,14 @@
-package net.castegaming.plugins.tencode;
+package net.castegaming.plugins.visionist;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-public class TencodeListener implements Listener{
+public class VisionistListener implements Listener{
 
-	private Tencode plugin;
+	private Visionist plugin;
 	
-	public TencodeListener(Tencode plugin) {
+	public VisionistListener(Visionist plugin) {
 		this.plugin = plugin;
 	}
 	

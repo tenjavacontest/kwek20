@@ -1,6 +1,6 @@
-package net.castegaming.plugins.tencode.commands;
+package net.castegaming.plugins.visionist.commands;
 
-import net.castegaming.plugins.tencode.Tencode;
+import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 
 public class CommandHandler {
 
-	private Tencode plugin;
+	private Visionist plugin;
 	
-	public CommandHandler(Tencode plugin) {
+	public CommandHandler(Visionist plugin) {
 		this.plugin = plugin;
 	}
 	
@@ -20,8 +20,12 @@ public class CommandHandler {
 		String label = command.getLabel();
 		
 		try {
-			if (label.equalsIgnoreCase("sellgem")){
-				cmd = new Cmd(sender, command, args);
+			if (label.equalsIgnoreCase("visionist")){
+				cmd = new Help(sender, command, args);
+			} else if (label.equalsIgnoreCase("command2")){
+				
+			} else {
+				cmd = new Help(sender, command, args);
 			}
 		} catch (NoConsoleException e){
 			sender.sendMessage(plugin.prefix + "You must be the console to execute this command!");

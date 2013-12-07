@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.castegaming.plugins.tencode.commands;
+package net.castegaming.plugins.visionist.commands;
 
 /**
  * @author Brord

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.castegaming.plugins.tencode.commands;
+package net.castegaming.plugins.visionist.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -13,13 +13,13 @@ import org.bukkit.entity.Player;
  * @author Brord
  *
  */
-public class Cmd extends CommandBase {
+public class Help extends CommandBase {
 
 	/**
 	 * @throws NoConsoleException 
 	 * 
 	 */
-	public Cmd(CommandSender sender, Command command, String[] args) throws NoConsoleException {
+	public Help(CommandSender sender, Command command, String[] args) throws NoConsoleException {
 		super(sender, command, args);
 		if (!(sender instanceof ConsoleCommandSender)){
 			throw new NoConsoleException();

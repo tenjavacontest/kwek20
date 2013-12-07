@@ -1,18 +1,18 @@
-name: Tencode
-main: net.castegaming.plugins.tencode
+name: visionist
+main: net.castegaming.plugins.visionist
 version: 0.1
-description: Tencode plugin
+description: Visionist plugin
 authors: [kwek20]
 commands:
-  cmd:
-    description: cmd command
-    usage: Type /cmd 
-    aliases: [cmd1]
+  visionist:
+    description: visionist base command
+    usage: Type /visionist to see the info 
+    aliases: [v]
     
 permissions:
-  tencode.*:
+  visionist.*:
     description: Gives access to all plugin commands
     children:
      name.reload: true
-  tencode.reload: 
+  visionist.reload: 
     description: Allows you to reload the plugin
