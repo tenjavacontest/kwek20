@@ -70,8 +70,7 @@ public class Stream {
 		if (!enabled) return;
 		
 		for (Player p : l.getWorld().getEntitiesByClass(Player.class)){
-			System.out.println("looping over players!");
-			if (p.getLocation().distanceSquared(l) < Consts.MAX_DISTANCE*Consts.MAX_DISTANCE){
+			if (p.getLocation().distanceSquared(l) < (Consts.MAX_DISTANCE*Consts.MAX_DISTANCE)){
 				play();
 				break;
 			}

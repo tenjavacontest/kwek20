@@ -16,7 +16,7 @@ import org.bukkit.command.CommandSender;
  * @author Brord
  *
  */
-public class Disable extends IngameCommand {
+public class Enable extends IngameCommand {
 
 	/**
 	 * @param sender
@@ -24,7 +24,8 @@ public class Disable extends IngameCommand {
 	 * @param args
 	 * @throws NotIngameException
 	 */
-	public Disable(CommandSender sender, Command command, String[] args) throws NotIngameException {
+	public Enable(CommandSender sender, Command command, String[] args)
+			throws NotIngameException {
 		super(sender, command, args);
 		// TODO Auto-generated constructor stub
 	}
@@ -48,8 +49,8 @@ public class Disable extends IngameCommand {
 		}
 		
 		if (closest != null){
-			closest.disable();
-			msg("Disabled your closest stream!");
+			closest.enable();
+			msg("Enabled your closest stream!");
 			return true;
 		}
 		return false;

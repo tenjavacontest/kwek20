@@ -60,7 +60,7 @@ public class CreateFall extends IngameCommand {
 			//no byte needed, just for handyness
 		}
 		
-		Visionist.getInstance().getStreamKeeper().addStream(new Stream(type, l, amount, b));
+		Visionist.getInstance().getStreamKeeper().addNewStream(new Stream(type, l, amount, b));
 		msg("Added a new Stream!");
 		return true;
 	}

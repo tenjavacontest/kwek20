@@ -55,6 +55,8 @@ public class CommandHandler {
 				cmd = new CreateFall(sender, command, args);
 			} else if (label.equalsIgnoreCase("disablestream")){
 				cmd = new Disable(sender, command, args);
+			} else if (label.equalsIgnoreCase("enablestream")){
+				cmd = new Enable(sender, command, args);
 			} else if (label.equalsIgnoreCase("removestream")){
 				cmd = new Remove(sender, command, args);
 			} else {

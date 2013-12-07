@@ -55,20 +55,21 @@ public class Visionist extends JavaPlugin {
 	private void loadStreams() {
 		Bukkit.getServer().getPluginManager().registerEvents(keeper = new StreamKeeper(), this);
 		
-		YamlConfiguration streams = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "streams.yml"));
+		YamlConfiguration streams = getFile("streams.yml");
 		for (String s : streams.getKeys(false)){
-			Material m = Material.valueOf(streams.getString("material"));
+			Material m = Material.valueOf(streams.getString(s + ".material"));
 			if (m == null) continue;
-			
+
 			World w;
-			if ((w = Bukkit.getServer().getWorld(streams.getString(s + "world"))) == null) continue;
+			if ((w = Bukkit.getServer().getWorld(streams.getString(s + ".world"))) == null) continue;
 			
-			List<Integer> coords = streams.getIntegerList(s + "location");
+			List<Integer> coords = streams.getIntegerList(s + ".location");
 			if (coords == null || coords.size() < 3) continue;
-			
+
 			Location l = new Location(w, coords.get(0), coords.get(1), coords.get(2));
 			
-			new Stream(m , l, streams.getInt(s + "amount", 1), (byte)streams.getInt(s + "byte", 0));
+			log("Added stream with material " + m.name());
+			keeper.addStream(new Stream(m , l, streams.getInt(s + ".amount", 1), (byte)streams.getInt(s + ".byte", 0)));
 		}
 	}
 

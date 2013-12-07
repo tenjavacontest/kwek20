@@ -48,7 +48,6 @@ public class StreamKeeper implements Listener{
 
 			@Override
 			public void run() {
-				System.out.println("looping over stream!");
 				List<Stream> stream = streams;
 				for (Stream s : streams){
 					if (s.needsRemove()){
@@ -66,11 +65,15 @@ public class StreamKeeper implements Listener{
 	public void stop(){
 		Bukkit.getScheduler().cancelTask(runnable);
 	}
+	
+	public void addStream(Stream stream) {
+		streams.add(stream);
+	}
 
 	/**
 	 * @param stream
 	 */
-	public void addStream(Stream stream) {
+	public void addNewStream(Stream stream) {
 		YamlConfiguration streams = Visionist.getFile("streams");
 		//streams cannot be null, since we check before we are loaded
 		
