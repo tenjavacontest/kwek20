@@ -61,6 +61,8 @@ public class CommandHandler {
 				cmd = new Remove(sender, command, args);
 			} else if (label.equalsIgnoreCase("createstructure")){
 				cmd = new CreateFallingSchematic(sender, command, args);
+			} else if (label.equalsIgnoreCase("fallingstructure")){
+				cmd = new UseFallingSchematic(sender, command, args);
 			} else {
 				cmd = new CreateStream(sender, command, args);
 			}

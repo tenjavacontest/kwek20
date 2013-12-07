@@ -102,8 +102,8 @@ public class Visionist extends JavaPlugin {
 		
 		String[] files = new String[]{"streams.yml", "structures.yml"};
 		for (String filename : files){
-			if (!new File(getDataFolder() + filename).exists()){
-				new File(getDataFolder() + filename).mkdir();
+			if (!new File(getDataFolder() + File.separator + filename).exists()){
+				new File(getDataFolder() + File.separator + filename).mkdir();
 			}
 		}
 		

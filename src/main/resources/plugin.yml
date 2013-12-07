@@ -34,6 +34,11 @@ commands:
     usage: Type /createstructure create [name] to create one! Make sure you set pos1 and pos2 first.
     aliases: [cstructure] 
     permission: visionist.createstructure
+  fallingstructure:
+    description: Creates a fallingstructure with a structure made before
+    usage: Type /fallingstructure [name] to create one! 
+    aliases: [fs, fallings, fstructure] 
+    permission: visionist.fallingstructure
 permissions:
   visionist.*:
     description: Gives access to all visionist commands
@@ -45,10 +50,13 @@ permissions:
      visionist.enablestream: true
      visionist.removestream: true
      visionist.createstructure: true
+     visionist.fallingstructure: true
   visionist.reload: 
     description: Allows you to reload the visionist
-  visionist.help: true
+  visionist.help:
     description: Allows you to view help
+  visionist.fallingstructure: 
+    description: Allows you to create fallingstructures
   visionist.createstream:
     description: Allows you to create streams
   visionist.disablestream:

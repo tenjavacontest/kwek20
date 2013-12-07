@@ -4,12 +4,12 @@
 package net.castegaming.plugins.visionist.commands;
 
 import java.util.HashMap;
-import java.util.List;
 
 import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -45,8 +45,10 @@ public class CreateFallingSchematic extends IngameCommand {
 		if (args.length > 0){
 			if (args[0].equalsIgnoreCase("pos1")){
 				pos1.put(name, getPlayer().getLocation());
+				msg("pos1 set to yor location");
 			} else if (args[0].equalsIgnoreCase("pos2")){
 				pos2.put(name, getPlayer().getLocation());
+				msg("pos2 set to yor location");
 			} else if (args[0].equalsIgnoreCase("create")){
 				if (args.length > 1){
 					if (pos1.containsKey(name) && pos2.containsKey(name)){
@@ -56,7 +58,7 @@ public class CreateFallingSchematic extends IngameCommand {
 						} else {
 						
 							//if 1 and 2 are reversed, swap em back
-							if (pos1.get(name).getBlockX() > pos2.get(name).getBlockX() && pos1.get(name).getBlockY() > pos2.get(name).getBlockY() && pos1.get(name).getBlockZ() > pos2.get(name).getBlockZ()){
+							if (pos1.get(name).getBlockX() >= pos2.get(name).getBlockX() && pos1.get(name).getBlockY() >= pos2.get(name).getBlockY() && pos1.get(name).getBlockZ() >= pos2.get(name).getBlockZ()){
 								Location temp = pos1.get(name);
 								pos1.put(name, pos2.get(name));
 								pos2.put(name, temp);
@@ -71,18 +73,28 @@ public class CreateFallingSchematic extends IngameCommand {
 							
 							//this assumes pos1 is less in x, y and z then pos2
 							for (int x = pos1.get(name).getBlockX(); x <= pos2.get(name).getBlockX(); x++){
-								for (int y = pos1.get(name).getBlockY(); x <= pos2.get(name).getBlockY(); x++){
-									for (int z = pos1.get(name).getBlockZ(); x <= pos2.get(name).getBlockZ(); x++){
-										blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
+								System.out.println("test");
+								for (int y = pos1.get(name).getBlockY(); y <= pos2.get(name).getBlockY(); y++){
+									System.out.println("test1");
+									for (int z = pos1.get(name).getBlockZ(); z <= pos2.get(name).getBlockZ(); z++){
+										System.out.println("??");
+										if (!w.getBlockAt(x, y, z).getType().equals(Material.AIR)){
+											System.out.println(x + " " + y + " " + z);
+											blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
+										}
 									}
 								}
 							}
 							
-							
-							
 							for (Vector v : blocks.keySet()){
-								
+								System.out.println(v);
+								structure.set(args[1] + "." + v.getBlockX() + "_" + v.getBlockY() + "_" + v.getBlockZ(), blocks.get(v));
 							}
+							
+							Visionist.saveFile(structure, "structures");
+							msg("Sucesfully created structure " + args[1] + "!");
+							pos1.remove(name);
+							pos2.remove(name);
 						}
 					} else {
 						msg("You forgot to add pos1 or pos2!");
@@ -97,7 +109,7 @@ public class CreateFallingSchematic extends IngameCommand {
 		} else {
 			options();
 		}
-		return false;
+		return true;
 	}
 	
 	private void options(){
