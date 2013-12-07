@@ -4,11 +4,17 @@
 package net.castegaming.plugins.visionist;
 
 import java.io.File;
+import java.util.List;
 
 import net.castegaming.plugins.visionist.commands.CommandHandler;
+import net.castegaming.plugins.visionist.managers.Stream;
+import net.castegaming.plugins.visionist.managers.StreamKeeper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -24,7 +30,7 @@ public class Visionist extends JavaPlugin {
 	private static Visionist plugin;
 	public static String prefix = ChatColor.MAGIC + "|" + ChatColor.GRAY + "[" + ChatColor.GOLD + "Visionist" + ChatColor.GRAY + "]" + ChatColor.MAGIC + "| " + ChatColor.RESET;
 	private CommandHandler handler;
-	
+	private StreamKeeper keeper;
 	
 	@Override
 	public void onEnable(){
@@ -33,8 +39,35 @@ public class Visionist extends JavaPlugin {
 		saveDefaultConfig();
 		checkConfig();
 		handler = new CommandHandler(this);
+		
+		
+		loadStreams();
+		keeper.start();
 	}
 	
+	/**
+	 * 
+	 */
+	private void loadStreams() {
+		Bukkit.getServer().getPluginManager().registerEvents(keeper = new StreamKeeper(), this);
+		
+		YamlConfiguration streams = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "streams.yml"));
+		for (String s : streams.getKeys(false)){
+			Material m = Material.valueOf(streams.getString("material"));
+			if (m == null) continue;
+			
+			World w;
+			if ((w = Bukkit.getServer().getWorld(streams.getString(s + "world"))) == null) continue;
+			
+			List<Integer> coords = streams.getIntegerList(s + "location");
+			if (coords == null || coords.size() < 3) continue;
+			
+			Location l = new Location(w, coords.get(0), coords.get(1), coords.get(2));
+			
+			new Stream(m , l, streams.getInt(s + "amount", 1), (byte)streams.getInt(s + "byte", 0));
+		}
+	}
+
 	@Override
 	public void onDisable(){
 		

@@ -1,20 +1,21 @@
 /**
  * 
  */
-package net.castegaming.plugins.visionist.keepers;
+package net.castegaming.plugins.visionist.managers;
 
 import java.util.LinkedList;
 
 import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * @author Brord
  *
  */
-public class StreamKeeper {
+public class StreamKeeper implements Listener{
 
 	public LinkedList<Stream> streams;
 	

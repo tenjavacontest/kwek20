@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.castegaming.plugins.visionist.keepers;
+package net.castegaming.plugins.visionist.managers;
 
 import net.castegaming.plugins.visionist.Consts;
 
