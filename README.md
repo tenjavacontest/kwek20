@@ -2,7 +2,7 @@ Visionist - by kwek20
 ======
 
 Tencode competition plugin
-Streaming at www.livestream.tv/kwek?t=122089
+Streaming at www.livestream.tv/kwek
 
 Compiled with Spigot 1.7.2
 

@@ -5,9 +5,11 @@ package net.castegaming.plugins.visionist.commands;
 
 import java.util.HashMap;
 
+import net.castegaming.plugins.visionist.Consts;
 import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -69,6 +71,20 @@ public class UseFallingSchematic extends IngameCommand {
 					blocks.put(temploc, (Block) structures.get(args[0] + "." + s));
 					//casting woo
 				}
+				
+				for (Location temp : blocks.keySet()){
+					if (!(emptySpace(temp).getBlockY()-temp.getBlockY() >= Consts.MIN_HEIGHT)){
+						//not enough space :(
+						msg("Please make sure there is atleast " + Consts.MIN_HEIGHT + " of free space above you.");
+						return true;
+					}
+				}
+				
+				for (Location temp : blocks.keySet()){
+					l.getWorld().spawnFallingBlock(temp, blocks.get(temp).getTypeId(), blocks.get(temp).getData());
+				}
+				
+				msg("Sucesfully spawned your structure!");
 			} else {
 				msg("That structure doesn't exist! pick one of these: ");
 				printStructureOptions();
@@ -77,6 +93,18 @@ public class UseFallingSchematic extends IngameCommand {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	private Location emptySpace(Location l){
+		if (l != null){
+			Location locabove = l.add(0, 1, 0);
+			if (locabove.getBlock().getType().equals(Material.AIR)){
+				locabove = emptySpace(locabove);
+			}
+			return locabove;
+		} else {
+			return null;
 		}
 	}
 	
