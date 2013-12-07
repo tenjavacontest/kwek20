@@ -49,17 +49,23 @@ public class StreamKeeper implements Listener{
 			@Override
 			public void run() {
 				List<Stream> stream = streams;
-				for (Stream s : streams){
+				for (Stream s : stream){
 					if (s.needsRemove()){
-						streams.remove(s);
-						System.out.println("Removed stream!");
+						final Stream removeme = s;
+						new BukkitRunnable(){
+							@Override
+							public void run() {
+								streams.remove(removeme);
+							}
+						}.runTaskLater(Visionist.getInstance(), 20*60);
+						
 					} else {
 						s.playStream();
 					}
 				}
 			}
 			
-		}.runTaskTimer(Visionist.getInstance(), 0, 5).getTaskId();
+		}.runTaskTimer(Visionist.getInstance(), 1, 1).getTaskId();
 	}
 	
 	public void stop(){

@@ -69,7 +69,12 @@ public class Visionist extends JavaPlugin {
 			Location l = new Location(w, coords.get(0), coords.get(1), coords.get(2));
 			
 			log("Added stream with material " + m.name());
-			keeper.addStream(new Stream(m , l, streams.getInt(s + ".amount", 1), (byte)streams.getInt(s + ".byte", 0)));
+			Stream stream = new Stream(m , l, streams.getInt(s + ".amount", 1), (byte)streams.getInt(s + ".byte", 0));
+			if (!streams.getBoolean(s + ".enabled", true)){
+				stream.disable();
+			}
+			
+			keeper.addStream(stream);
 		}
 	}
 

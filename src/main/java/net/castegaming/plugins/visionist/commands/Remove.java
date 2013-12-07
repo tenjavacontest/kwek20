@@ -51,8 +51,8 @@ public class Remove extends IngameCommand {
 		if (closest != null){
 			closest.disable();
 			closest.remove();
-			//remove it from the config, but how??
 			Visionist.getFile("streams").set(id + "", null);
+			Visionist.saveFile(Visionist.getFile("streams"), "streams");
 			msg("Removed your closest stream!");
 			return true;
 		}

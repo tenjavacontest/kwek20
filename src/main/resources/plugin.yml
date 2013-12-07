@@ -16,6 +16,10 @@ commands:
     description: Disables the stream nearest to you
     usage: Type /disablestream to disable the stream nearest to you
     aliases: [ds, disables, dstream] 
+  enablestream:
+    description: Enables the stream nearest to you
+    usage: Type /enablestream to disable the stream nearest to you
+    aliases: [ss, enables, estream] 
   removestream:
     description: Removes the stream nearest to you
     usage: Type /removestream to remove the stream nearest to you
