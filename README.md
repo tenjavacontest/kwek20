@@ -8,7 +8,7 @@ Compiled with Spigot 1.7.2
 
 Description:
 Create moving fountains and falling buildings and such!
-
+Falling buildings do not quite work, only when theres no slabs or air between blocks
 
 commands:
 ---------
