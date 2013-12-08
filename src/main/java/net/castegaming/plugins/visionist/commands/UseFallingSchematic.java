@@ -100,14 +100,13 @@ public class UseFallingSchematic extends IngameCommand {
 							if (temp != null && fblocks.get(temp) != null){
 								int id = fblocks.get(temp)[0];
 								byte b = (byte) fblocks.get(temp)[1];
-								msg(id + " " + b);
 								
 								FallingBlock f = temp.getWorld().spawnFallingBlock(temp.add(new Location(temp.getWorld(), 0, Consts.MIN_HEIGHT, 0)), id, b);
 								f.setMetadata("Visionist", new FixedMetadataValue(Visionist.getInstance(), "fallingschematic"));
 							}
 						}
 						
-					}.runTaskLater(Visionist.getInstance(), i);
+					}.runTaskLater(Visionist.getInstance(), i*5);
 					i++;
 				}
 				

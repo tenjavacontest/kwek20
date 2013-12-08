@@ -5,6 +5,7 @@ package net.castegaming.plugins.visionist.commands;
 
 import java.util.HashMap;
 
+import net.castegaming.plugins.visionist.Consts;
 import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.ChatColor;
@@ -78,8 +79,9 @@ public class CreateFallingSchematic extends IngameCommand {
 										if (!w.getBlockAt(x, y, z).getType().equals(Material.AIR)){
 											blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
 										} else {
-											w.getBlockAt(x, y, z).setType(Material.BEDROCK);
-											blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
+//											if (!(emptySpace(new Location(getPlayer().getWorld(), x, y, z)).getY()-pos2.get(name).getBlockY() == 0))
+//											w.getBlockAt(x, y, z).setType(Material.BEDROCK);
+//											blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
 											
 										}
 									}
@@ -91,9 +93,9 @@ public class CreateFallingSchematic extends IngameCommand {
 								structure.createSection(section);
 								structure.set(section + ".data", blocks.get(v).getData());
 								structure.set(section + ".type", blocks.get(v).getType().getId());
-								if (blocks.get(v).getType().equals(Material.BEDROCK)){
-									blocks.get(v).setType(Material.AIR);
-								}
+//								if (blocks.get(v).getType().equals(Material.BEDROCK)){
+//									blocks.get(v).setType(Material.AIR);
+//								}
 							}
 							
 							Visionist.saveFile(structure, "structures");
