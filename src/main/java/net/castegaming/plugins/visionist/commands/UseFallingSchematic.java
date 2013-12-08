@@ -17,6 +17,9 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.FallingBlock;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * @author Brord
@@ -75,25 +78,37 @@ public class UseFallingSchematic extends IngameCommand {
 					stat[0] = structures.getInt(args[0] + "." +  s + ".type", 1);
 					stat[1] = structures.getInt(args[0] + "." + s + ".data", 0);
 					blocks.put(temploc, stat);
-					msg(temploc + "");
 					//casting woo
 				}
 				
 				for (Location temp : blocks.keySet()){
 					double tempy = temp.getY();
-					if (!(emptySpace(temp).getY()-tempy >= Consts.MIN_HEIGHT)){
+					if (!(emptySpace(temp.clone()).getY()-tempy >= Consts.MIN_HEIGHT)){
 						//not enough space :(
 						msg("Please make sure there is atleast " + Consts.MIN_HEIGHT + " of free space above you.");
 						return true;
 					}
 				}
 				
-				for (Location temp : blocks.keySet()){
-					//msg(temp + "");
-					if (temp != null && blocks.get(temp) != null){
-						msg(temp + "");
-						l.getWorld().spawnFallingBlock(temp.add(0, Consts.MIN_HEIGHT, 0), blocks.get(temp)[0], (byte) blocks.get(temp)[1]);
-					}
+				final HashMap<Location, int[]> fblocks = blocks;
+				int i=0;
+				for (final Location temp : fblocks.keySet()){
+					new BukkitRunnable(){
+	
+						@Override
+						public void run() {
+							if (temp != null && fblocks.get(temp) != null){
+								int id = fblocks.get(temp)[0];
+								byte b = (byte) fblocks.get(temp)[1];
+								msg(id + " " + b);
+								
+								FallingBlock f = temp.getWorld().spawnFallingBlock(temp.add(new Location(temp.getWorld(), 0, Consts.MIN_HEIGHT, 0)), id, b);
+								f.setMetadata("Visionist", new FixedMetadataValue(Visionist.getInstance(), "fallingschematic"));
+							}
+						}
+						
+					}.runTaskLater(Visionist.getInstance(), i);
+					i++;
 				}
 				
 				msg("Sucesfully spawned your structure!");

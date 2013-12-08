@@ -77,6 +77,10 @@ public class CreateFallingSchematic extends IngameCommand {
 									for (int z = pos1.get(name).getBlockZ(); z <= pos2.get(name).getBlockZ(); z++){
 										if (!w.getBlockAt(x, y, z).getType().equals(Material.AIR)){
 											blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
+										} else {
+											w.getBlockAt(x, y, z).setType(Material.BEDROCK);
+											blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
+											
 										}
 									}
 								}
@@ -87,6 +91,9 @@ public class CreateFallingSchematic extends IngameCommand {
 								structure.createSection(section);
 								structure.set(section + ".data", blocks.get(v).getData());
 								structure.set(section + ".type", blocks.get(v).getType().getId());
+								if (blocks.get(v).getType().equals(Material.BEDROCK)){
+									blocks.get(v).setType(Material.AIR);
+								}
 							}
 							
 							Visionist.saveFile(structure, "structures");

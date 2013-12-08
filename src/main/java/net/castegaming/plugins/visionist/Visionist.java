@@ -44,6 +44,7 @@ public class Visionist extends JavaPlugin {
 		checkConfig();
 		handler = new CommandHandler(this);
 		
+		Bukkit.getServer().getPluginManager().registerEvents(new VisionistListener(this), this);
 		loadStreams();
 		keeper.start();
 		
