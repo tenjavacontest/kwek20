@@ -17,8 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
-import sun.awt.windows.ThemeReader;
-
 import com.avaje.ebean.enhance.asm.commons.Method;
 
 /**

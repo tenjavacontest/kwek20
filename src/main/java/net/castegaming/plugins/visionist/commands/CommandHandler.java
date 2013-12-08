@@ -1,7 +1,6 @@
 package net.castegaming.plugins.visionist.commands;
 
 import java.util.Arrays;
-import java.util.logging.Level;
 
 import net.castegaming.plugins.visionist.Visionist;
 

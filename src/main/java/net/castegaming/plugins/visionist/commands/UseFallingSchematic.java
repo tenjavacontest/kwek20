@@ -5,15 +5,12 @@ package net.castegaming.plugins.visionist.commands;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 import net.castegaming.plugins.visionist.Consts;
 import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;

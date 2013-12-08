@@ -5,7 +5,6 @@ package net.castegaming.plugins.visionist.commands;
 
 import java.util.HashMap;
 
-import net.castegaming.plugins.visionist.Consts;
 import net.castegaming.plugins.visionist.Visionist;
 
 import org.bukkit.ChatColor;
@@ -40,6 +39,7 @@ public class CreateFallingSchematic extends IngameCommand {
 	/**
 	 * @see net.castegaming.plugins.visionist.commands.CommandBase#handle()
 	 **/
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean handle() {
 		String name = getPlayer().getName();
