@@ -73,13 +73,9 @@ public class CreateFallingSchematic extends IngameCommand {
 							
 							//this assumes pos1 is less in x, y and z then pos2
 							for (int x = pos1.get(name).getBlockX(); x <= pos2.get(name).getBlockX(); x++){
-								System.out.println("test");
 								for (int y = pos1.get(name).getBlockY(); y <= pos2.get(name).getBlockY(); y++){
-									System.out.println("test1");
 									for (int z = pos1.get(name).getBlockZ(); z <= pos2.get(name).getBlockZ(); z++){
-										System.out.println("??");
 										if (!w.getBlockAt(x, y, z).getType().equals(Material.AIR)){
-											System.out.println(x + " " + y + " " + z);
 											blocks.put(new Vector(x - startx, y-starty, z-startz), w.getBlockAt(x, y, z));
 										}
 									}
@@ -87,12 +83,14 @@ public class CreateFallingSchematic extends IngameCommand {
 							}
 							
 							for (Vector v : blocks.keySet()){
-								System.out.println(v);
-								structure.set(args[1] + "." + v.getBlockX() + "_" + v.getBlockY() + "_" + v.getBlockZ(), blocks.get(v));
+								String section = args[1] + "." + v.getBlockX() + "_" + v.getBlockY() + "_" + v.getBlockZ();
+								structure.createSection(section);
+								structure.set(section + ".data", blocks.get(v).getData());
+								structure.set(section + ".type", blocks.get(v).getType().getId());
 							}
 							
 							Visionist.saveFile(structure, "structures");
-							msg("Sucesfully created structure " + args[1] + "!");
+							msg("Sucesfully created structure \"" + args[1] + "\"!");
 							pos1.remove(name);
 							pos2.remove(name);
 						}

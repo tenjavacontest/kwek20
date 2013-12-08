@@ -3,7 +3,10 @@
  */
 package net.castegaming.plugins.visionist.commands;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import net.castegaming.plugins.visionist.Consts;
 import net.castegaming.plugins.visionist.Visionist;
@@ -39,12 +42,12 @@ public class UseFallingSchematic extends IngameCommand {
 	@Override
 	public boolean handle() {
 		if (args.length > 0){
-			YamlConfiguration structures = Visionist.getFile("strucutes");
+			YamlConfiguration structures = Visionist.getFile("structures");
 			if (structures.contains(args[0])){
 				Location l = getPlayer().getLocation();
 				Location temploc = null;
 				
-				HashMap<Location, Block> blocks = new HashMap<Location, Block>();
+				HashMap<Location, int[]> blocks = new HashMap<Location, int[]>();
 				
 				int[] coords;
 				String[] scoords;
@@ -68,12 +71,17 @@ public class UseFallingSchematic extends IngameCommand {
 					}
 					
 					temploc = new Location(l.getWorld(), l.getBlockX() + coords[0], l.getBlockY() + coords[1], l.getBlockZ() + coords[2]);
-					blocks.put(temploc, (Block) structures.get(args[0] + "." + s));
+					int[] stat = new int[2];
+					stat[0] = structures.getInt(args[0] + "." +  s + ".type", 1);
+					stat[1] = structures.getInt(args[0] + "." + s + ".data", 0);
+					blocks.put(temploc, stat);
+					msg(temploc + "");
 					//casting woo
 				}
 				
 				for (Location temp : blocks.keySet()){
-					if (!(emptySpace(temp).getBlockY()-temp.getBlockY() >= Consts.MIN_HEIGHT)){
+					double tempy = temp.getY();
+					if (!(emptySpace(temp).getY()-tempy >= Consts.MIN_HEIGHT)){
 						//not enough space :(
 						msg("Please make sure there is atleast " + Consts.MIN_HEIGHT + " of free space above you.");
 						return true;
@@ -81,7 +89,11 @@ public class UseFallingSchematic extends IngameCommand {
 				}
 				
 				for (Location temp : blocks.keySet()){
-					l.getWorld().spawnFallingBlock(temp, blocks.get(temp).getTypeId(), blocks.get(temp).getData());
+					//msg(temp + "");
+					if (temp != null && blocks.get(temp) != null){
+						msg(temp + "");
+						l.getWorld().spawnFallingBlock(temp.add(0, Consts.MIN_HEIGHT, 0), blocks.get(temp)[0], (byte) blocks.get(temp)[1]);
+					}
 				}
 				
 				msg("Sucesfully spawned your structure!");
@@ -109,6 +121,8 @@ public class UseFallingSchematic extends IngameCommand {
 	}
 	
 	private void printStructureOptions(){
-		msg(Visionist.getFile("strucutes").getKeys(false).toArray(new String[0]).toString().replaceFirst("[", "").replaceFirst("]", ""));
+		//Set<String> strings = Visionist.getFile("structures").getKeys(true);
+		//msg(Arrays.toString(strings.toArray(new String[strings.size()])) + " " + strings.size());
+		msg(Arrays.toString(Visionist.getFile("structures").getKeys(false).toArray(new String[0])).replace("[", "").replace("]", ""));
 	}
 }
