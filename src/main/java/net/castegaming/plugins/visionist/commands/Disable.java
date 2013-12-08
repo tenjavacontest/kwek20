@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
+ * Disables a {@link Stream}
  * @author Brord
  *
  */

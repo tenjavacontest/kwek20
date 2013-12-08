@@ -62,6 +62,11 @@ public class CommandHandler {
 				cmd = new CreateFallingSchematic(sender, command, args);
 			} else if (label.equalsIgnoreCase("fallingstructure")){
 				cmd = new UseFallingSchematic(sender, command, args);
+			} else if (label.equalsIgnoreCase("reload")){
+				plugin.reloadConfig();
+				plugin.loadconfig();
+				plugin.loadStreams();
+				Visionist.msg(sender, "Reloaded Visionist");
 			} else {
 				cmd = new CreateStream(sender, command, args);
 			}

@@ -42,6 +42,8 @@ public class Visionist extends JavaPlugin {
 		plugin = this;
 		saveDefaultConfig();
 		checkConfig();
+		loadconfig();
+		
 		handler = new CommandHandler(this);
 		
 		Bukkit.getServer().getPluginManager().registerEvents(new VisionistListener(this), this);
@@ -52,12 +54,21 @@ public class Visionist extends JavaPlugin {
 	}
 	
 	/**
-	 * 
+	 * Loads all the constants from config to our class
 	 */
-	private void loadStreams() {
+	public void loadconfig() {
+		Consts.MAX_DISTANCE = getConfig().getInt("max_dist", 20);
+		Consts.MIN_HEIGHT = getConfig().getInt("min_height", 20);
+	}
+
+	/**
+	 * Loads all the streams from the config
+	 */
+	public void loadStreams() {
 		Bukkit.getServer().getPluginManager().registerEvents(keeper = new StreamKeeper(), this);
 		
 		YamlConfiguration streams = getFile("streams.yml");
+		keeper.clean();
 		for (String s : streams.getKeys(false)){
 			Material m = Material.valueOf(streams.getString(s + ".material"));
 			if (m == null) continue;
@@ -140,7 +151,7 @@ public class Visionist extends JavaPlugin {
 	}
 
 	/**
-	 * @return the isntance
+	 * @return the instance
 	 */
 	public static Visionist getInstance() {
 		return plugin;

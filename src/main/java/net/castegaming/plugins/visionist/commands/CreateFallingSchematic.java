@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.util.Vector;
 
 /**
+ * Create a schematic which can be used
  * @author Brord
  *
  */

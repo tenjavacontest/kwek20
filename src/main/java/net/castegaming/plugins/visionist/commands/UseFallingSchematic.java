@@ -119,6 +119,11 @@ public class UseFallingSchematic extends IngameCommand {
 		}
 	}
 	
+	/**
+	 * Get the last emtpy space location above this location
+	 * @param l the location
+	 * @return the last empty space
+	 */
 	private Location emptySpace(Location l){
 		if (l != null){
 			Location locabove = l.add(0, 1, 0);
@@ -131,9 +136,10 @@ public class UseFallingSchematic extends IngameCommand {
 		}
 	}
 	
+	/**
+	 * Prints all the available structures
+	 */
 	private void printStructureOptions(){
-		//Set<String> strings = Visionist.getFile("structures").getKeys(true);
-		//msg(Arrays.toString(strings.toArray(new String[strings.size()])) + " " + strings.size());
 		msg(Arrays.toString(Visionist.getFile("structures").getKeys(false).toArray(new String[0])).replace("[", "").replace("]", ""));
 	}
 }

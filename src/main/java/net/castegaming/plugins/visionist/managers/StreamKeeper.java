@@ -140,4 +140,11 @@ public class StreamKeeper implements Listener{
 	public List<Stream> getStreams(){
 		return streams;
 	}
+
+	/**
+	 * Cleans all the streams from the list
+	 */
+	public void clean() {
+		streams = new LinkedList<Stream>();
+	}
 }

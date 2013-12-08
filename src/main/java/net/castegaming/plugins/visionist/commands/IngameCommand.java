@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
+ * Abstract class meaning the command is for ingame players only
  * @author Brord
  *
  */
