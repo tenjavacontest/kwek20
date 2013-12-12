@@ -4,7 +4,7 @@ Visionist - by kwek20
 Tencode competition plugin
 Streaming at www.livestream.tv/kwek
 
-Compiled with Spigot 1.7.2
+Compiled with Bukkit 1.7.2-R0.1
 
 Description:
 Create moving fountains and falling buildings and such!
